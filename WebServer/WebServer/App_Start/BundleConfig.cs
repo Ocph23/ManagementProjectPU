@@ -20,12 +20,15 @@ namespace WebServer
                         "~/Scripts/modernizr-*"));
 
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
-                      "~/Scripts/bootstrap.js",
+                       "~/js/poper.min.js",
+                        "~/js/bootstrap.js",
+                        "~/js/mdb.js",
                       "~/Scripts/respond.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
-                      "~/Content/bootstrap.css",
-                      "~/Content/site.css"));
+                      "~/css/bootstrap.css",
+                       "~/css/mdb.css",
+                      "~/css/style.css"));
         }
     }
 }
