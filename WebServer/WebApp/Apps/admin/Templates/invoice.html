@@ -1,0 +1,117 @@
+﻿<div class="row" style="padding:15px" ng-init="Init()">
+    <div class="card w-100">
+        <div class="card-header">
+            <h4 class="print-only">INVOICE</h4>
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="navbar-toggler-icon"></span>
+                </button> <a class="navbar-brand">DAFTAR INVOICE</a>
+            </nav>
+        </div>
+        <div class="card-body">
+            <table class="table table-bordered">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Tanggal</th>
+                        <th scope="col">Nomor Invoice</th>
+                        <th scope="col">Agen</th>
+                        <th scope="col">Jatuh Tempo</th>
+                        <th scope="col">Total</th>
+                        <th scope="col">Status</th>
+                        <th scope="col" class="text-right">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="item in Datas">
+                        <th scope="row">{{$index+1}}</th>
+                        <td>{{item.CreatedDate | date :  "dd MMMM y" }}</td>
+                        <td>{{item.NumberView}}</td>
+                        <td>{{item.Agent.Name}}</td>
+                        <td>{{item.DeadLine | date :  "dd MMMM y"}}</td>
+                        <td class="text-right">{{item.GrandTotal|number}}</td>
+                        <td>{{item.Status}}</td>
+                      
+                        <td class="text-right">
+                            <a ui-sref="createinvoice({data:item})">
+                                <i class="fas  fa-list-alt text-warning"></i>
+                            </a>
+                            <a ng-click="SelectedItem(item)" data-toggle="modal" data-target="#modal-container-825517" href="">
+                                <i class="far fa-money-bill-alt text-danger"></i>
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+<div class="col-md-12">
+    <div class="modal fade" id="modal-container-825517" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="myModalLabel">
+                     Verifikasi  Pembayaran ?
+                    </h5>
+                    <button type="button" class="close" data-dismiss="modal">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form role="form" ng-submit="SavePayment(model)">
+                        <div class="form-group">
+                            <label>
+                                Nomor Invoice
+                            </label>
+                            <input readonly ng-model="model.NumberView" type="text" class="form-control" required />
+                        </div>
+                        <div class="form-group">
+                            <label>
+                                Status Pemabayaran
+                            </label>
+                            <select disabled class="form-control" ng-options="item as item for item in Statuses" ng-model="model.Status" required></select>
+                        </div>
+                        <div class="form-group">
+                            <label>
+                                Tanggal Bayar
+                            </label>
+                            <input disabled type="datetime" ng-model="model.DateOfPayment" class="form-control" required />
+
+                        </div>
+                        <div class="form-group">
+                            <label>
+                                Jumlah Bayar
+                            </label>
+                            <input disabled type="number" ng-model="model.AmountPaid" class="form-control" required />
+
+                        </div>
+
+                        <div class="form-group">
+                            <label>
+                                Catatan
+                            </label>
+                            <textarea ng-model="model.Note" class="form-control" required></textarea>
+
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-primary">
+                                Save changes
+                            </button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                                Close
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

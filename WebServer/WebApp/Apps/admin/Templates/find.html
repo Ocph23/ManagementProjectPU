@@ -1,0 +1,287 @@
+﻿<div class="row" style="padding:15px" ng-init="Init()">
+    <div class="card w-100">
+        <div class="card-header">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-12">
+                        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                                <form ng-submit="Search(model)" class="form-inline">
+                                    <label class="form-check-label mr-sm-2" for="inlineRadio1">Agent </label>
+                                    <select class="form-control" ng-options="item as item.Name for item in Agents track by item.AgentId" ng-model="model.Agent"></select>
+                                    <input ng-change="ChangeSearch()" class="form-control mr-sm-2" type="text" ng-model="model.Content" required placeholder="search" />
+                                    <button class="btn btn-primary my-2 my-sm-0" type="submit">
+                                        Search
+                                    </button>
+
+                                </form>
+
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <label class="form-check-label" for="inlineRadio1">Search By : </label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" ng-model="findBy" value="STT">
+                                <label class="form-check-label" for="inlineRadio1">STT</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" ng-model="findBy" value="manifest">
+                                <label class="form-check-label" for="inlineRadio2">Manifest</label>
+                            </div>
+
+                        </nav>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card-body">
+            <div ng-if="findBy==='STT' && Items.length > 0">
+                <table class="table table-bordered">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">AWB/STT</th>
+                            <th scope="col">Shiper</th>
+                            <th scope="col">Reciever</th>
+                            <th scope="col">Package</th>
+                            <th scope="col">Weight</th>
+                            <th scope="col">Manifest</th>
+                            <th scope="col">Ricieved By</th>
+                            <th scope="col" class="text-right">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="item in Items">
+                            <th scope="row">{{$index+1}}</th>
+                            <td>{{item.STT}}</td>
+                            <td>{{item.Shiper}}</td>
+                            <td>{{item.Reciever}}</td>
+                            <td>{{item.Pcs}}</td>
+                            <td>{{item.WeightValue}}</td>
+                            <td>{{item.Manifest.Number}}</td>
+                            <td>{{item.Status.Courier.Name}}</td>
+                            <td class="text-right">
+                                <a ng-click="Detail(item)" data-target="#modal-container-825517" role="button" data-toggle="modal" href=""><i class="fas fa-edit text-warning"></i></a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div ng-if="findBy!=='STT' && Manifest!=undefined">
+                <forms>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h2>Manifest Info</h2>
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-form-label">Nomor Manifest</label>
+                                <div class="col-sm-8">
+                                    <input type="text" readonly class="form-control" ng-model="Manifest.Number">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="staticEmail" class="col-sm-4 col-form-label">Tanggal Kirim</label>
+                                <div class="col-sm-8">
+                                    <input type="text" readonly class="form-control" ng-model="Manifest.SendedDate">
+                                   
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-form-label">Jumlah</label>
+                                <div class="col-sm-8">
+                                    <input type="text" readonly class="form-control" ng-model="Manifest.Package">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-form-label">Via</label>
+                                <div class="col-sm-8">
+                                    <input type="text" readonly class="form-control" ng-model="Manifest.PortType">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <h2>Status</h2>
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-form-label">Informasi </label>
+                                <div class="col-sm-8">
+                                    <textarea type="text" readonly class="form-control" ng-model="Manifest.DetailInformation"></textarea>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-form-label">On Dest Port</label>
+                                <div class="col-sm-6">
+                                    <input type="datetime" class="form-control" ng-model="Manifest.RecieveOnPort">
+                                </div>
+                                <div class="col-sm-2">
+                                   <button class="btn btn-primary">Update</button>
+                                </div>
+                            </div>
+                           
+                        </div>
+                    </div>
+                </forms>
+
+
+                <table class="table table-bordered">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Manifest Number</th>
+                            <th scope="col">Shiper</th>
+                            <th scope="col">Reciever</th>
+                            <th scope="col">Package</th>
+                            <th scope="col">Weight</th>
+                            <th scope="col">Manifest</th>
+                            <th scope="col">Ricieved By</th>
+                            <th scope="col" class="text-right">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="item in Manifest.Items">
+                            <th scope="row">{{$index+1}}</th>
+                            <td>{{item.STT}}</td>
+                            <td>{{item.Shiper}}</td>
+                            <td>{{item.Reciever}}</td>
+                            <td>{{item.Pcs}}</td>
+                            <td>{{item.WeightValue}}</td>
+                            <td>{{item.Manifest.Number}}</td>
+                            <td>{{item.Status.Courier.Name}}</td>
+                            <td class="text-right">
+                                <a ng-click="Detail(item)" data-target="#modal-container-825517" role="button" data-toggle="modal" href=""><i class="fas fa-edit text-warning"></i></a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+
+
+
+
+
+
+        </div>
+    </div>
+</div>
+
+
+<div class="col-md-12">
+    <div class="modal fade" id="modal-container-825517" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-lg modal-dialog" role="document">
+            <div class="modal-content">
+                <form ng-submit="ChangeStatus(data)">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="myModalLabel">
+                            Info
+                        </h5>
+                        <button type="button" class="close" data-dismiss="modal">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+
+
+                            <div class="col-md-6">
+                                <h2>Detail</h2>
+                                <div class="form-group row">
+                                    <label class="col-sm-4 col-form-label">STT</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" readonly class="form-control" ng-model="data.STT">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="staticEmail" class="col-sm-4 col-form-label">Shiper</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" readonly class="form-control" ng-model="data.Shiper">
+                                        <textarea readonly class="form-control" ng-model="data.ShiperAddress"></textarea>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-4 col-form-label">Reciever</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" readonly class="form-control" ng-model="data.Reciever">
+                                        <textarea readonly class="form-control" ng-model="data.RecieverAddress"></textarea>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-4 col-form-label">Destination</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" readonly class="form-control" ng-model="data.City.Name">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="form-group col-md-4">
+                                        <label for="inputCity">Pack Count</label>
+                                        <input type="text" class="form-control" id="inputCity" ng-model="data.Pcs">
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label for="inputState">Type</label>
+                                        <input type="text" readonly class="form-control" id="inputCity" ng-model="data.WeightType">
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label for="inputZip">Weight</label>
+                                        <input type="text" class="form-control" id="inputZip" ng-model="data.WeightValue">
+                                    </div>
+                                </div>
+
+
+                            </div>
+                            <div class="col-md-6">
+                                <h2>Status</h2>
+                                <div class="form-group row">
+                                    <label class="col-sm-4 col-form-label">Sended</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" readonly class="form-control" ng-model="data.Manifest.SendedDate">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-4 col-form-label">On Dest Port</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" readonly class="form-control" ng-model="data.Manifest.RecieveOnPort">
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label class="col-sm-4 col-form-label">Recieved Date</label>
+                                    <div class="col-sm-8">
+                                        <input type="datetime-local" class="form-control" ng-model="data.Status.RecieveDate" required>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-4 col-form-label">Reciever Name</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" class="form-control" ng-model="data.Status.RecieverName">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-4 col-form-label">Courier</label>
+                                    <div class="col-sm-8">
+                                        <select class="form-control" ng-options="item as item.Name for item in Workers track by item.Id" ng-model="data.Status.Courier" ng-required="true"></select>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-4 col-form-label">Note</label>
+                                    <div class="col-sm-8">
+                                        <textarea class="form-control" ng-model="data.Status.RecieveCondition"></textarea>
+                                    </div>
+                                </div>
+
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary">Update</button>
+                        <button class="btn btn-dark" data-dismiss="modal">Close</button>
+                    </div>
+                    </form>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

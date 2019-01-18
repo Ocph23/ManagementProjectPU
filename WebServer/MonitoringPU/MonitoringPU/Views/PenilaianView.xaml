@@ -1,0 +1,67 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:control="clr-namespace:ProgressRingControl.Forms.Plugin;assembly=ProgressRing.Forms.Plugin"
+             x:Class="MonitoringPU.Views.PenilaianView">
+    <ContentPage.Content>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="10*"/>
+                <RowDefinition Height="80*"/>
+                <RowDefinition Height="15*"/>
+            </Grid.RowDefinitions>
+            <StackLayout Orientation="Horizontal">
+                <SearchBar Placeholder="Periode"/>
+                <Button Text="+"></Button>
+            </StackLayout>
+            <ListView x:Name="ItemsListView" Grid.Row="1"
+                ItemsSource="{Binding ProjectSelected.ListPenilaian}"
+                VerticalOptions="FillAndExpand"
+                HasUnevenRows="true"
+                RefreshCommand="{Binding LoadItemsCommand}"
+                IsPullToRefreshEnabled="true"
+                IsRefreshing="{Binding IsBusy, Mode=OneWay}"
+                CachingStrategy="RecycleElement"
+                >
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell  >
+                            <Grid Padding="10" BackgroundColor="#F1F9FF" RowSpacing="20" Margin="5">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="100"/>
+                                </Grid.ColumnDefinitions>
+                                <StackLayout>
+                                    <Label Text="{Binding Nama}"/>
+                                    <Slider Minimum="{Binding Minimum}" Value="{Binding Capaian}"  Maximum="{Binding Target}"/>
+                                </StackLayout>
+                                <StackLayout Grid.Column="1">
+                                    <Button Text="Image"></Button>
+                                </StackLayout>
+                            </Grid>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+            <Grid  Grid.Row="2"  BackgroundColor="#2196F3" RowSpacing="20" Padding="5">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="30*"/>
+                    <ColumnDefinition Width="30*"/>
+                    <ColumnDefinition Width="40*"/>
+                </Grid.ColumnDefinitions>
+                <Grid >
+                    <Label Text="75%" HorizontalOptions="Center" VerticalOptions="Center"></Label>
+                    <control:ProgressRing  Grid.Column="0" RingThickness="10"  Progress="0.75"></control:ProgressRing>
+                </Grid>
+                <Grid Grid.Column="1">
+                    <Label TextColor="White" Text="Total"  VerticalOptions="Center"></Label>
+                </Grid>
+                <StackLayout Grid.Column="2">
+                  
+                    <Button Text="Save" HeightRequest="70"></Button>
+                </StackLayout>
+            </Grid>
+            
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

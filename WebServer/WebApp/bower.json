@@ -1,0 +1,8 @@
+{
+  "name": "myproject",
+  "dependencies": {
+    "angular": "angularjs#^1.7.6",
+    "angular-route": "v1.7.6",
+    "angular-ui-router": "1.0.20"
+  }
+}

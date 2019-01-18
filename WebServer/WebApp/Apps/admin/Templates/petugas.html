@@ -1,0 +1,143 @@
+﻿<div class="row" style="padding:15px">
+    <div class="card w-100">
+        <div class="card-header">
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="navbar-toggler-icon"></span>
+                </button> <a class="navbar-brand">Profil Petugas</a>
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="navbar-nav ml-md-auto">
+                        <li class="nav-item active">
+                            <a data-target="#modal-container-825517" role="button" data-toggle="modal" class="nav-link" href="" ng-click="model=null"><i class="fas fa-plus-circle  text-success"></i> <span class="sr-only">(current)</span></a>
+                        </li>
+
+                    </ul>
+                </div>
+            </nav>
+        </div>
+        <div class="card-body">
+            <table class="table table-bordered">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">#</th>
+
+                        <th scope="col">Nama</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Telp</th>
+                        <th scope="col">Alamat</th>
+                        <th scope="col" class="text-right"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="item in Datas">
+                        <th scope="row">{{$index+1}}</th>
+                        <td>{{item.Name}}</td>
+                        <td>{{item.Email}}</td>
+                        <td>{{item.Handphone}}</td>
+                        <td>{{item.Address}}</td>
+                        <td class="text-right">
+                            <a ng-click="SelectedItem(item)" data-toggle="modal" data-target="#exampleModalCenter" href=""><i class="fas fa-users-cog text-info"></i></a>
+                            <a ng-click="EditItem(item)" data-target="#modal-container-825517" role="button" data-toggle="modal" href=""><i class="fas fa-edit text-warning"></i></a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+<div class="col-md-12">
+    <div class="modal fade" id="modal-container-825517" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="myModalLabel">
+                       Tambah Petugas
+                    </h5>
+                    <button type="button" class="close" data-dismiss="modal">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form role="form" ng-submit="AddNewUser(model)">
+                        <div class="form-group">
+                            <label>
+                                Nama
+                            </label>
+                            <input ng-model="model.Name" type="text" class="form-control" required />
+                        </div>
+                        <div class="form-group">
+                            <label>
+                                Email
+                            </label>
+                            <input ng-model="model.Email" type="email" class="form-control" required ng-readonly="model.Id!==undefined"/>
+                        </div>
+
+                        <div class="form-group">
+                            <label>
+                                Telepon
+                            </label>
+                            <input ng-model="model.Handphone" type="text" class="form-control" required />
+                        </div>
+                        <div class="form-group">
+                            <label>
+                                Alamat
+                            </label>
+                            <textarea ng-model="model.Address" type="text" class="form-control"></textarea>
+                        </div>
+
+                        <div class="form-group" ng-if="model.Id===undefined">
+                            <label>
+                                Jabatan
+                            </label>
+                            <select class="form-control" ng-options="item as item for item in Roles" ng-model="model.Role"></select>
+                        </div>
+                        <div class="modal-footer">
+                            <button  type="submit" class="btn btn-primary">
+                                Save changes
+                            </button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                                Close
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">{{LockTitle}} Akun</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form class="form-inline">
+                    <div class="form-check form-check-inline">
+                        <label class="form-check-label" for="inlineCheckbox1">Blokir&emsp;</label>
+                        <a ng-show="LockTitle==='Lock'" href="" ng-click="swich('UnLock')">  <i class="fas fa-toggle-off fa-2x text-dark"></i></a>
+                        <a ng-show="LockTitle==='UnLock'" href="" ng-click="swich('Lock')">  <i class="fas fa-toggle-on fa-2x text-primary"></i></a>
+                        <label class="form-check-label" for="inlineCheckbox1">&emsp; Aktifkan</label>
+                    </div>
+                
+                </form>
+               
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                <button ng-click="delete()" data-dismiss="modal" type="button" class="btn btn-danger">Yes</button>
+            </div>
+        </div>
+    </div>
+</div>

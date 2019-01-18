@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:control="clr-namespace:ProgressRingControl.Forms.Plugin;assembly=ProgressRing.Forms.Plugin"
+             Title="Progress"
+             x:Class="MonitoringPU.Views.ProgressView">
+    <ContentPage.Content>
+        <StackLayout Padding="10">
+            <ListView x:Name="ItemsListView"
+                ItemsSource="{Binding ProjectSelected.ListPenilaian}"
+                VerticalOptions="FillAndExpand"
+                HasUnevenRows="true"
+                RefreshCommand="{Binding LoadItemsCommand}"
+                IsPullToRefreshEnabled="true"
+                IsRefreshing="{Binding IsBusy, Mode=OneWay}"
+                CachingStrategy="RecycleElement" IsEnabled="False"
+                >
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell  >
+                            <Grid Padding="10" BackgroundColor="#F1F9FF" RowSpacing="20" Margin="5">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="auto"/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+                                <Grid HeightRequest="65">
+                                    <Label Text="75%" HorizontalOptions="Center" VerticalOptions="Center"></Label>
+                                    <control:ProgressRing  Grid.Column="0" RingThickness="10" WidthRequest="60"   Progress="0.75"></control:ProgressRing>
+                                </Grid>
+                                
+                                <StackLayout Grid.Column="1">
+                                    <Label Text="{Binding Nama}"/>
+                                    <Label FontSize="Micro" Text="{Binding Description}"/>
+                                </StackLayout>
+                            </Grid>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

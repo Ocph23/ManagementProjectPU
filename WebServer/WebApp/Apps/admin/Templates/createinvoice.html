@@ -1,0 +1,197 @@
+﻿<div class="row" style="padding:15px">
+    <div class="card w-100">
+        <form ng-submit="SaveChange(model)" id="manifestForm">
+            <div class="card-header">
+                <h4 class="print-only">INVOICE</h4>
+                <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                        <span class="navbar-toggler-icon"></span>
+                    </button> <a class="navbar-brand">{{Title}}</a>
+                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                        <ul class="navbar-nav ml-md-auto">
+                            <li class="nav-item active">
+                                <button type="submit" class="btn btn-link">
+                                    <i ng-if="Saved" class="fas fa-check-circle fa-2x text-success"></i>
+                                    <i ng-if="!Saved" class="fas fa-check-circle fa-2x  text-dark"></i>
+                                    <span class="sr-only">(current)</span>
+                                </button>
+                            </li>
+                            <li ng-if="Saved" class="nav-item active">
+                                <button type="button" ui-sref="printinvoice({data:model,state:'invoices'})" class="btn btn-link">
+                                    <i class="fas fa-print fa-2x text-info"></i>
+                                </button>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-5">
+                        <div class="form-group row">
+                            <label for="staticEmail" class="col-sm-4 col-form-label">Nomor Invoce</label>
+                            <div class="col-sm-8">
+                                <input type="text" readonly ng-model="model.NumberView" class="form-control" id="inputPassword" placeholder="Nomor Invoce" required>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="inputPassword" class="col-sm-4 col-form-label">Agent</label>
+                            <div class="col-sm-8">
+                                <select class="form-control" ng-options="item as item.Name for item in Agents track by item.AgentId" ng-model="model.Agent" required></select>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="inputPassword" class="col-sm-4 col-form-label">Note</label>
+                            <div class="col-sm-8">
+                                <textarea ng-model="model.Note" class="form-control" placeholder="Note" required></textarea>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="col-md-2"></div>
+                    <div class="col-md-5">
+
+                      
+                        <div class="form-group row">
+                            <label for="inputPassword" class="col-sm-4 col-form-label">Biaya Kirim Dokumen</label>
+                            <div class="col-sm-8">
+                                <input type="number" ng-model="model.SendInvoiceCost" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="staticEmail" class="col-sm-4 col-form-label">Tanggal</label>
+                            <div class="col-sm-8">
+                                <input type="text" readonly ng-model="model.CreatedDate | date:'dd MMMM yyyy'" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="inputPassword" class="col-sm-4 col-form-label">Accounting</label>
+                            <div class="col-sm-8">
+                                <input type="text" ng-model="model.User.Name" readonly class="form-control" placeholder="Admin Name" required>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+
+    </div>
+    <div class="card w-100" ng-show="Saved">
+        <div class="card-body">
+            <table class="table table-bordered">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">AWB/STT</th>
+                        <th scope="col">Shiper</th>
+                        <th scope="col">Reciever</th>
+                        <th scope="col">Package</th>
+                        <th scope="col">Weight</th>
+                        <th scope="col">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="item in model.Items">
+                        <th scope="row">{{$index+1}}</th>
+                        <td>{{item.STT.STT}}</td>
+                        <td>{{item.STT.Shiper}}</td>
+                        <td>{{item.STT.Reciever}}</td>
+                        <td>{{item.STT.Pcs}}</td>
+                        <td>{{item.STT.WeightValue}}</td>
+                        <td>
+                            <a ng-click="SelectedItem(item)" data-toggle="modal" data-target="#exampleModalCenter" href=""><i class="fas fa-trash text-danger"></i></a>
+                            <a ng-click="EditItem(item)" data-target="#modal-container-825517" role="button" data-toggle="modal" href=""><i class="fas fa-edit text-warning"></i></a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="card-header">
+            <a data-target="#modal-container-825517" role="button" data-toggle="modal" class="nav-link" href="" ng-click="Saved=true">
+                <i class="fas fa-plus-circle   text-success"></i>
+                <span class="sr-only">(current)</span>
+            </a>
+        </div>
+    </div>
+
+
+</div>
+
+
+<div class="col-md-12">
+    <div class="modal fade" id="modal-container-825517" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-lg modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="myModalLabel">
+                        Add New Item
+                    </h5>
+                    <button type="button" class="close" data-dismiss="modal">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <table class="table table-bordered">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">AWB/STT</th>
+                                <th scope="col">Reciever</th>
+
+                                <th scope="col">Via</th>
+                                <th scope="col">Price</th>
+                                <th scope="col">Lain-lain</th>
+                                <th scope="col"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="item in Sources">
+                                <td class="text-right">
+                                    <input class="form-check-input" type="checkbox" ng-model="item.Selected">
+                                </td>
+                                <td>{{item.STT.STT}}</td>
+                                <td >{{item.STT.Reciever}}</td>
+                                <td>{{item.STT.ShippingBy}}</td>
+                                <td class="text-right">{{item.STT.PriceValue}}</td>
+                                <td> 
+                                 <input type="number" ng-model="item.OtherCosts" class="form-control w-50" />
+                                </td>
+                                
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                    <button ng-click="AddItems(model,Sources)" data-dismiss="modal" type="button" class="btn btn-info">Add</button>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Delete Agent</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Yakin Hapus Data ?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                <button ng-click="delete()" data-dismiss="modal" type="button" class="btn btn-danger">Yes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
