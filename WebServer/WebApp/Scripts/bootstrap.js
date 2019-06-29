@@ -554,7 +554,7 @@ if (typeof jQuery === 'undefined') {
   var Collapse = function (element, options) {
     this.$element      = $(element)
     this.options       = $.extend({}, Collapse.DEFAULTS, options)
-    this.$trigger      = $('[data-toggle="collapse"][href="#' + element.id + '"],' +
+    this.$trigger      = $('[data-toggle="collapse"][href="/#' + element.id + '"],' +
                            '[data-toggle="collapse"][data-target="#' + element.id + '"]')
     this.transitioning = null
 
@@ -1994,7 +1994,7 @@ if (typeof jQuery === 'undefined') {
 
     var selector = this.selector +
       '[data-target="' + target + '"],' +
-      this.selector + '[href="' + target + '"]'
+      this.selector + '[href="/' + target + '"]'
 
     var active = $(selector)
       .parents('li')

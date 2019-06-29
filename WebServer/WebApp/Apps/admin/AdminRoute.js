@@ -1,6 +1,7 @@
 ﻿'use strict';
 angular.module('admin.routes', [])
     .config(function ($stateProvider, $urlRouterProvider) {
+        $urlRouterProvider.when('', '/admin');
         $stateProvider
             .state('admin', {
                 url: '/admin',
@@ -10,89 +11,54 @@ angular.module('admin.routes', [])
 
             .state('dashboard', {
                 url: '/dashboard',
-                parent:'admin',
+                parent:"admin",
                 templateUrl: '/apps/admin/templates/dashboard.html',
                 controller: 'AdminUserController'
             })
 
-            .state('adminagent', {
-                url: '/adminagent',
-                parent: 'admin',
-                templateUrl: '/apps/admin/templates/agent.html',
-                controller: 'AdminAgentController'
-            })
-
-            .state('usermanage', {
-                url: '/usermanage',
-                parent: 'admin',
+            .state('proyek', {
+                url: '/proyek',
                 params: {
                     data: null
                 },
-                templateUrl: '/apps/admin/templates/manageuser.html',
-                controller: 'AdminUserManageController'
+                parent: "admin",
+                templateUrl: '/apps/admin/templates/proyek.html',
+                controller: 'ProyekController'
             })
 
-            .state('cities', {
-                url: '/cities',
-                parent: 'admin',
+            .state('proyekdetail', {
+                url: '/proyekdetail',
+                parent: "admin",
                 params: {
                     data: null
                 },
-                templateUrl: '/apps/admin/templates/city.html',
-                controller: 'AdminCityManageController'
+                templateUrl: '/apps/admin/templates/proyekdetail.html',
+                controller: 'ProyekDetailController'
             })
 
-            .state('prices', {
-                url: '/prices',
-                parent: 'admin',
-                params: {
-                    data: null
-                },
-                templateUrl: '/apps/admin/templates/prices.html',
-                controller: 'AdminPriceManageController'
+            .state('bidang', {
+                url: '/bidang',
+                parent: "admin",
+                templateUrl: '/apps/admin/templates/bidang.html',
+                controller: 'BidangController'
+            })
+            .state('konsultan', {
+                url: '/konsultan',
+                parent: "admin",
+                templateUrl: '/apps/admin/templates/konsultan.html',
+                controller: 'KonsultanController'
             })
 
-            .state('adminfind', {
-                url: '/adminfind',
-                parent: 'admin',
-                templateUrl: '/apps/admin/templates/find.html',
-                controller: 'AdminFindController'
-            })
-
-
-            .state('petugas', {
-                url: '/petugas',
-                parent: 'admin',
-                templateUrl: '/apps/admin/templates/petugas.html',
-                controller: 'AdminPetugasController'
-            })
-
-            .state('invoices', {
-                url: '/invoices',
-                parent: 'admin',
-                templateUrl: '/apps/admin/templates/invoice.html',
-                controller: 'AdminInvoiceController'
-            })
-
-            .state('createinvoice', {
-                url: '/createinvoice',
-                parent: 'admin',
-                params: {
-                    data: null
-                },
-                templateUrl: '/apps/admin/templates/createinvoice.html',
-                controller: 'AdminCreateInvoiceController'
-            })
-            .state('printinvoice', {
-                url: '/printinvoice',
-                params: {
-                    data: null, state: null
-                },
-                templateUrl: '/apps/admin/templates/printinvoice.html',
-                controller: 'AdminPrintInvoiceController'
+            .state('kontraktor', {
+                url: '/kontraktor',
+                parent: "admin",
+                templateUrl: '/apps/admin/templates/kontraktor.html',
+                controller: 'KontraktorController'
             })
 
 
+
+            
             ;
         
 

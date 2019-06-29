@@ -18,9 +18,10 @@ using Ocph.DAL;
           public byte[] Foto {  get; set;} 
 
           [DbColumn("ItemPenilaianId")] 
-          public int ItemPenilaianId {  get; set;} 
+          public int ItemPenilaianId {  get; set;}
 
-     }
+        public itempenilaian ItemPenilaian { get;  set; }
+    }
 }
 
 

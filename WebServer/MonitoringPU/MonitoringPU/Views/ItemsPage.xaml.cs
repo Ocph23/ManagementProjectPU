@@ -27,7 +27,7 @@ namespace MonitoringPU.Views
 
         async void OnItemSelected(object sender, SelectedItemChangedEventArgs args)
         {
-            var item = args.SelectedItem as Project;
+            var item = args.SelectedItem as project;
             if (item == null)
                 return;
 
@@ -39,7 +39,7 @@ namespace MonitoringPU.Views
 
         async void AddItem_Clicked(object sender, EventArgs e)
         {
-            await Navigation.PushModalAsync(new NavigationPage(new NewItemPage()));
+            await Navigation.PushModalAsync(new NavigationPage(new AboutPage()));
         }
 
         protected override void OnAppearing()
@@ -52,7 +52,7 @@ namespace MonitoringPU.Views
 
         private async void ClickGestureRecognizer_Clicked(object sender, EventArgs e)
         {
-            var item = ItemsListView.SelectedItem as Project;
+            var item = ItemsListView.SelectedItem as project;
             if (item == null)
                 return;
 

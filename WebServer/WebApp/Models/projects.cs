@@ -1,13 +1,15 @@
-using System; 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Ocph.DAL;
- 
- namespace WebApp.Models 
+using WebApp.UnitOfWorks;
+
+namespace WebApp.Models 
 {
-    [TableName("projects")]
+
+    [TableName("Projects")]
     public class project
     {
         [PrimaryKey("ProjekId")]
@@ -56,19 +58,31 @@ using Ocph.DAL;
         }
 
         public double Longitude { get {
-                return Convert.ToDouble(Koordinat.Split(';')[0]);
+                if (!string.IsNullOrEmpty(Koordinat))
+                    return Convert.ToDouble(Koordinat.Split(',')[0]);
+                else
+                    return 0;
             } }
 
         public double Latitude
         {
             get
             {
-                return Convert.ToDouble(Koordinat.Split(';')[1]);
+                if (!string.IsNullOrEmpty(Koordinat))
+                    return Convert.ToDouble(Koordinat.Split(',')[1]);
+                else
+                    return 0;
             }
         }
 
-        public List<itempenilaian> Penilaians { get; set; }
-
+        public IEnumerable<itempenilaian> Penilaians { get; set; }
+        public IEnumerable<aspekpenilaian> AspekPenilaian { get;  set; }
+        public List<Periode> Periodes { get;  set; }
+        public double Progress { get;  set; }
+        public konsultan Konsultan { get;  set; }
+        public pengusaha Kontraktor { get;  set; }
+        public unitkerja Bidang { get; set; }
+        public Periode LastPeriode { get;  set; }
     }
 }
 

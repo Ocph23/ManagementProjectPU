@@ -1,21 +1,29 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:control="clr-namespace:ProgressRingControl.Forms.Plugin;assembly=ProgressRing.Forms.Plugin"
+             xmlns:control="clr-namespace:ProgressRingControl.Forms.Plugin;assembly=ProgressRing.Forms.Plugin" Title="Penilaian/Proggess"
              x:Class="MonitoringPU.Views.PenilaianView">
     <ContentPage.Content>
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="10*"/>
-                <RowDefinition Height="80*"/>
+                <RowDefinition Height="15*"/>
+                <RowDefinition Height="75*"/>
                 <RowDefinition Height="15*"/>
             </Grid.RowDefinitions>
-            <StackLayout Orientation="Horizontal">
-                <SearchBar Placeholder="Periode"/>
-                <Button Text="+"></Button>
-            </StackLayout>
+            <Grid Margin="10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="90*"/>
+                    <ColumnDefinition Width="10*"/>
+                </Grid.ColumnDefinitions>
+                <Picker Title="Pilih Periode Penilaian"  ItemsSource="{Binding ProjectSelected.Periodes}" SelectedItem="{Binding PeriodeSelected}" ItemDisplayBinding="{Binding PeriodeId,StringFormat='Periode {0}'}"></Picker>
+                <Image Grid.Column="1" Source="addicon.png" WidthRequest="30" IsVisible="{Binding IsKonsultan}">
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding NewPeriodeCommand}"></TapGestureRecognizer>
+                    </Image.GestureRecognizers>
+                </Image>
+            </Grid>
             <ListView x:Name="ItemsListView" Grid.Row="1"
-                ItemsSource="{Binding ProjectSelected.ListPenilaian}"
+                ItemsSource="{Binding PeriodeSelected.Data}"
                 VerticalOptions="FillAndExpand"
                 HasUnevenRows="true"
                 RefreshCommand="{Binding LoadItemsCommand}"
@@ -26,17 +34,22 @@
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell  >
-                            <Grid Padding="10" BackgroundColor="#F1F9FF" RowSpacing="20" Margin="5">
+                            <Grid Padding="10" BackgroundColor="{StaticResource NavigationPrimary}" RowSpacing="20" Margin="5">
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="100"/>
+                                    <ColumnDefinition Width="90*"/>
+                                    <ColumnDefinition Width="10*"/>
                                 </Grid.ColumnDefinitions>
                                 <StackLayout>
-                                    <Label Text="{Binding Nama}"/>
-                                    <Slider Minimum="{Binding Minimum}" Value="{Binding Capaian}"  Maximum="{Binding Target}"/>
+                                    <Label TextColor="White" Text="{Binding Aspek.Aspek}"/>
+                                    <Slider Minimum="{Binding Minimum}" Value="{Binding Nilai}" Maximum="100"/>
+                                    <Label TextColor="White" HorizontalTextAlignment="End" Text="{Binding Nilai,StringFormat='{0}%'}"></Label>
                                 </StackLayout>
-                                <StackLayout Grid.Column="1">
-                                    <Button Text="Image"></Button>
+                                <StackLayout Grid.Column="1" Orientation="Horizontal" IsVisible="{Binding IsKonsultan}">
+                                    <Image Source="imgicon.png" WidthRequest="30">
+                                        <Image.GestureRecognizers>
+                                            <TapGestureRecognizer Command="{Binding AddPhotoCommand}" CommandParameter="{Binding .}"></TapGestureRecognizer>
+                                        </Image.GestureRecognizers>
+                                    </Image>
                                 </StackLayout>
                             </Grid>
                         </ViewCell>
@@ -46,19 +59,18 @@
             <Grid  Grid.Row="2"  BackgroundColor="#2196F3" RowSpacing="20" Padding="5">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="30*"/>
-                    <ColumnDefinition Width="30*"/>
-                    <ColumnDefinition Width="40*"/>
+                    <ColumnDefinition Width="50*"/>
+                    <ColumnDefinition Width="20*"/>
                 </Grid.ColumnDefinitions>
                 <Grid >
-                    <Label Text="75%" HorizontalOptions="Center" VerticalOptions="Center"></Label>
-                    <control:ProgressRing  Grid.Column="0" RingThickness="10"  Progress="0.75"></control:ProgressRing>
+                    <Label TextColor="Wheat" Text="{Binding PeriodeSelected.ProgressView}" HorizontalOptions="Center" VerticalOptions="Center"></Label>
+                    <control:ProgressRing  Grid.Column="0" RingThickness="10"   Progress="{Binding PeriodeSelected.Progress}"></control:ProgressRing>
                 </Grid>
                 <Grid Grid.Column="1">
                     <Label TextColor="White" Text="Total"  VerticalOptions="Center"></Label>
                 </Grid>
                 <StackLayout Grid.Column="2">
-                  
-                    <Button Text="Save" HeightRequest="70"></Button>
+                    <Button IsVisible="{Binding IsKonsultan}" Command="{Binding SaveCommand}" Text="Save" HeightRequest="50"></Button>
                 </StackLayout>
             </Grid>
             

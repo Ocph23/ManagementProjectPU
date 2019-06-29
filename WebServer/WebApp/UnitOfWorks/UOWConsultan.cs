@@ -28,6 +28,52 @@ namespace WebApp.UnitOfWorks
             }
         }
 
+        internal object GetItemById(int id)
+        {
+            try
+            {
+                using (var db = new OcphDbContext())
+                {
+                    var item = db.Consultans.Where(O => O.ID == id).FirstOrDefault();
+                    if (item == null)
+                        throw new SystemException("Data Tidak Ditemukan !");
+                    else
+                    {
+                        item.Projects = db.Projects.Where(O => O.KonsultanId == id).ToList();
+                        return item;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+                throw new SystemException(ex.Message);
+            }
+        }
+
+        internal konsultan GetByUserId(string userId)
+        {
+            try
+            {
+                using (var db = new OcphDbContext())
+                {
+                    var item = db.Consultans.Where(O => O.UserId == userId).FirstOrDefault();
+                    if (item == null)
+                        throw new SystemException("Data Tidak Ditemukan !");
+                    else
+                    {
+                        item.Projects = db.Projects.Where(O => O.KonsultanId == item.ID).ToList();
+                        return item;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+                throw new SystemException(ex.Message);
+            }
+        }
+
         internal IEnumerable<konsultan> Get()
         {
             using (var db = new OcphDbContext())
@@ -64,7 +110,7 @@ namespace WebApp.UnitOfWorks
             {
                 using (var db = new OcphDbContext())
                 {
-                    var updated = db.Consultans.Update(O => new { O.Alamat, O.Perusahaan, O.Pimpinan}, item, O => O.ID==item.ID);
+                    var updated = db.Consultans.Update(O => new { O.Alamat, O.Perusahaan, O.Pimpinan,O.Telepon}, item, O => O.ID==item.ID);
                     if (item.ID <= 0)
                         throw new SystemException("Data Tidak Tersimpan !");
                     else

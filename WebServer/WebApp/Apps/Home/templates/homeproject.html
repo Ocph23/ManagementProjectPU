@@ -1,0 +1,54 @@
+﻿<div class="box">
+    <div class="box-header">
+        <h3 class="box-title">Data Pekerjaan</h3>
+    </div>
+    <!-- /.box-header -->
+    <div class="box-body">
+        <div class="col-md-3">
+            <input class="form-control pull-right" ng-model="Search" placeholder="Search" />
+            <span><i class="fa fa-find"></i></span>
+        </div>
+        <table id="example1" class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Pekerjaaan</th>
+                    <th>Nomor Kontrak</th>
+                    <th>Nilai Kontrak</th>
+                    <th>Lama Pekerjaan</th>
+                    <th>Unit Kerja</th>
+                    <th>Progress</th>
+                    <th></th>
+
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="item in Datas|filter:Search">
+                    <td>{{$index+1}}</td>
+                    <td>{{item.NamaPekerjaan}}</td>
+                    <td>{{item.NomorKontrak}}</td>
+                    <td>Rp. {{item.NilaiKontrak|number}}</td>
+                    <td>{{item.LamaPekerjaan}} Hari</td>
+                    <td>{{item.Bidang.Nama}}</td>
+                    <td>
+                        <div class="col-md-12">
+                            <div class="col-md-10">
+                                <div class="progress progress-striped active">
+                                    <div class="progress-bar progress-bar-success" style="width: {{item.Progress}}%"></div>
+                                </div>
+                            </div>
+                            <div class="col-md-2"><span class="badge bg-green">{{item.Progress}}%</span></div>
+                        </div>
+                    </td>
+                    <td>
+                        <a href="" ui-sref="homedetailproject({data:item})"><i class="fa fa-list"></i></a>
+                    </td>
+
+                </tr>
+
+            </tbody>
+           
+        </table>
+    </div>
+    <!-- /.box-body -->
+</div>

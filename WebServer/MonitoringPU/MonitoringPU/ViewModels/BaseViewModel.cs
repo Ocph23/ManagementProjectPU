@@ -12,7 +12,8 @@ namespace MonitoringPU.ViewModels
 {
     public class BaseViewModel:BaseNotify
     {
-        public IDataStore<Project> Projects => DependencyService.Get<IDataStore<Project>>() ?? new ProjectDataStore();
+        public IDataStore<project> Projects => DependencyService.Get<IDataStore<project>>() ?? new ProjectDataStore();
+        public IAuthService<AuthenticationToken> AuthDataService => DependencyService.Get<IAuthService<AuthenticationToken>>() ?? new AuthService();
 
         bool isBusy = false;
         public bool IsBusy

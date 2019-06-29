@@ -1,0 +1,104 @@
+﻿<section class="content-header">
+    <div class="col-md-12">
+        <div class="col-md-9">
+            <button ng-click="model = {}" type="button" class="btn btn-default" data-toggle="modal" data-target="#modal-default">
+                Unit Kerja /Bidang Baru
+            </button>
+        </div>
+        <div class="col-md-3">
+            <input class="form-control pull-right" placeholder="Search" />
+            <span><i class="fa fa-find"></i></span>
+        </div>
+    </div>
+</section>
+
+
+<div class="row">
+    <div class="col-md-3" ng-repeat="item in Datas">
+        <div class="box box-widget widget-user" ng-clik="SelectItem(item)">
+            <div style="position:absolute;right:15px;top:10px" class="pull-right">
+                <a ng-click="SelectItem(item)" data-toggle="modal" data-target="#modal-default">
+                    <i style="color:white" class="fa fa-edit fa-2x " aria-hidden="true"></i>
+                </a>
+            </div>
+
+            <div id="box-body">
+                <div style="position:absolute;padding:10px;color:white">
+                    <h4>{{item.Nama}}</h4>
+                    <h6>{{item.Pimpinan}}</h6>
+                </div>
+                <img src="../../../dist/img/photo1.png" alt="Norway" style="width:100%;max-height:150px">
+
+            </div>
+            <div class="box-footer">
+                <div>
+
+                </div>
+                <div class="text-block" style="padding:20px;min-height:200px">
+                    <p>
+                         {{item.Keterangan}}
+                    </p>
+                </div>
+            </div>
+        </div>
+        <!-- /.widget-user -->
+    </div>
+
+</div>
+
+
+
+<div class="modal fade" id="modal-default">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title">Unit Kerja/Bidang Baru</h4>
+            </div>
+            <div class="modal-body">
+                <form role="form" class="form-horizontal" ng-submit="Save(model)">
+                    <div class="box-body">
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">Nama Unit Kerja</label>
+                            <div class="col-sm-9">
+                                <input ng-model="model.Nama" type="text" class="form-control" placeholder="Nama Unit Kerja">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">Pinpinan</label>
+                            <div class="col-sm-9">
+                                <input ng-model="model.Pimpinan" type="text" class="form-control" placeholder="Pimpinan">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">Keterangan</label>
+                            <div class="col-sm-9">
+                                <textarea ng-model="model.Keterangan" type="text" class="form-control" placeholder="Keterangan"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.box-body -->
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Save changes</button>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+<style>
+    .horizontal-collapse {
+        height: 70px;
+    }
+
+    .navbar-collapse.in {
+        overflow-y: hidden;
+    }
+</style>

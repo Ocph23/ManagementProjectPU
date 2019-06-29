@@ -28,11 +28,11 @@ namespace WebApp.UnitOfWorks
             }
         }
 
-        internal IEnumerable<project> Get()
+        internal IEnumerable<aspekpenilaian> Get()
         {
             using (var db = new OcphDbContext())
             {
-                var result = db.Projects.Select();
+                var result = db.AspekPenilaians.Select();
                 return result.ToList();
             }
         }
@@ -40,43 +40,47 @@ namespace WebApp.UnitOfWorks
 
         internal bool Delete(int id)
         {
-            try
+            using (var db = new OcphDbContext())
             {
-                using (var db = new OcphDbContext())
+                var trans = db.BeginTransaction();
+                try
                 {
-                    var deleted = db.Projects.Delete(O => O.ProjekId == id);
+                    var deleted = db.AspekPenilaians.Delete(O => O.AspekPenialainId == id);
                     if (deleted)
                         throw new SystemException("Data Tidak Tersimpan !");
                     else
-                        return true;
+                    {
+                        if (!db.ItemsPenilaian.Delete(O => O.AspekPenialainId == id))
+                        {
+                            throw new SystemException("Data Tidak Tersimpan !");
+                        }
+                    }
+
+                    trans.Commit();
+                    return true;
                 }
+                catch (Exception ex)
+                {
+                    trans.Rollback();
+                    throw new SystemException(ex.Message);
+                }
+               
+
             }
-            catch (Exception ex)
-            {
-                throw new SystemException(ex.Message);
-            }
+            
         }
 
 
-        internal project Put(project item)
+        internal aspekpenilaian Put(aspekpenilaian item)
         {
             try
             {
                 using (var db = new OcphDbContext())
                 {
-                    var updated = db.Projects.Update(O => new {
-                        O.KonsultanId,
-                        O.PengusahaId,
-                        O.UnitKerjaId,
-                        O.Koordinat,
-                        O.LokasiPekerjaan,
-                        O.Map,
-                        O.NilaiKontrak,
-                        O.NomorKontrak,
-                        O.NamaPekerjaan,
-                        O.TanggalKontrak
-                    }, item, O => O.ProjekId == item.ProjekId);
-                    if (item.ProjekId <= 0)
+                    var updated = db.AspekPenilaians.Update(O => new {
+                        O.KonsultanId, O.BobotPenilaian,O.Keterangan,O.Urutan
+                    }, item, O => O.AspekPenialainId == item.AspekPenialainId);
+                    if (updated)
                         throw new SystemException("Data Tidak Tersimpan !");
                     else
                         return item;

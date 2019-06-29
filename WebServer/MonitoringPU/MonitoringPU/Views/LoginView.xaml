@@ -5,9 +5,9 @@
     <ContentPage.Content>
         <StackLayout VerticalOptions="Center" Margin="20" Spacing="30">
             
-            <Entry Placeholder="User Name" Text=""></Entry>
-            <Entry Placeholder="Password" IsPassword="True" Text=""></Entry>
-            <Button Style="{StaticResource ButtonPrimary}" Text="LOGIN"></Button>
+            <Entry Placeholder="User Name" Text="{Binding Email}"></Entry>
+            <Entry Placeholder="Password" IsPassword="True" Text="{Binding Password}"></Entry>
+            <Button Style="{StaticResource ButtonPrimary}" Command="{Binding LoginCommand}" Text="LOGIN"></Button>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

@@ -6,7 +6,20 @@ angular.module("home.services", [])
     .factory('PriceServices', PriceServices)
     .factory('StatusServices', StatusServices)
     .factory('TerbilangServices', TerbilangServices)
+    .factory('Progress',Progress)
     ;
+function Progress(ngProgressFactory) {
+    var progressbar = ngProgressFactory.createInstance();
+    progressbar.setParent(document.getElementById('progresbody'));
+    function start() {
+        progressbar.start();
+    }
+    function done() {
+        progressbar.complete();
+    }
+    return { start: start, done: done};
+}
+
 
 function MessageServices($rootScope) {
     var alertService = {};
@@ -18,6 +31,19 @@ function MessageServices($rootScope) {
         var titleText = title;
         if (title === undefined) {
             titleText === "Info";
+        }
+
+        message(msg, titleText, "info");
+
+        window.setTimeout(function () {
+            $("#MessageBox").click();
+        }, 3000);
+    };
+
+    alertService.success = function (msg, title) {
+        var titleText = title;
+        if (title === undefined) {
+            titleText === "success";
         }
 
         message(msg, titleText, "info");
@@ -77,7 +103,7 @@ function MessageServices($rootScope) {
 
 
 
-function AuthServices($http, $state, $rootScope, MessageServices, $q) {
+function AuthServices($http, $state, $rootScope, MessageServices, Progress, $q) {
     //var def = $q.defer();
 
     var service = {
@@ -92,7 +118,7 @@ function AuthServices($http, $state, $rootScope, MessageServices, $q) {
 
     function login(user) {
         var data = "grant_type=password&username=" + user.Email + "&password=" + user.Password;
-        NProgress.start();
+        Progress.start();
         $http({
             method: 'POST',
             url: '/Token',
@@ -104,7 +130,7 @@ function AuthServices($http, $state, $rootScope, MessageServices, $q) {
             sessionStorage.setItem("TokenType", result.token_type);
             sessionStorage.setItem("UserName", user.Email);
             sessionStorage.setItem("Role", result.roles);
-            NProgress.done();
+            Progress.done();
             var doc = document.getElementById('loginForm');
             doc.style.animation='hideLogin 3s';
             window.setTimeout(function () {
@@ -114,7 +140,7 @@ function AuthServices($http, $state, $rootScope, MessageServices, $q) {
             }, function errorCallback(response) {
                 MessageServices.error(response.data.error_description, response.data.error);
                     
-            NProgress.done();
+                Progress.done();
         });
     }
     function logout() {

@@ -1,0 +1,117 @@
+﻿<section class="content-header">
+    <div class="col-md-12">
+        <div class="col-md-9">
+            <button ng-click="model = {}" type="button" class="btn btn-default" data-toggle="modal" data-target="#modal-default">
+                Kontraktor Baru
+            </button>
+        </div>
+        <div class="col-md-3">
+            <input class="form-control pull-right" placeholder="Search" />
+            <span><i class="fa fa-find"></i></span>
+        </div>
+    </div>
+</section>
+
+
+<div class="row">
+    <div class="col-md-3" ng-repeat="item in Datas">
+
+        <div class="box box-widget widget-user">
+            <div style="position:absolute;right:15px;top:10px" class="pull-right">
+                <a ng-click="SelectItem(item)" data-toggle="modal" data-target="#modal-default">
+                    <i style="color:white" class="fa fa-edit fa-2x " aria-hidden="true"></i>
+                </a>
+            </div>
+
+            <div id="box-body">
+                <div style="position:absolute;padding:10px;color:white">
+                    <h4>{{item.Direktur}}</h4>
+                    <h6>Pimpinan</h6>
+                </div>
+                <img src="../../../dist/img/photo1.png" alt="Norway" style="width:100%;max-height:150px">
+
+            </div>
+            <div class="text-center">
+                <h4>{{item.Nama}}</h4>
+            </div>
+            <div class="box-footer" style="min-height:250px">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <h5>Alamat</h5>
+                        {{item.Alamat}}
+                        <h5>Telepon</h5>
+                        {{item.Telepon}}
+                        <h5>Email</h5>
+                        {{item.Email}}
+                    </div>
+                </div>
+                <!-- /.row -->
+            </div>
+        </div>
+        <!-- /.widget-user -->
+    </div>
+</div>
+
+
+
+
+<div class="modal fade" id="modal-default">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title">Kontraktor Baru</h4>
+            </div>
+            <div class="modal-body">
+                <form role="form" class="form-horizontal" ng-submit="Save(model)">
+                    <div class="box-body">
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">Nama</label>
+                            <div class="col-sm-9">
+                                <input ng-model="model.Nama" type="text" class="form-control" placeholder="Nama ">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">Pimpinan</label>
+                            <div class="col-sm-9">
+                                <input ng-model="model.Direktur" type="text" class="form-control" placeholder="Pimpinan">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">Email</label>
+                            <div class="col-sm-9">
+                                <input ng-model="model.Email" type="text" class="form-control" placeholder="Email">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">Telepon</label>
+                            <div class="col-sm-9">
+                                <input ng-model="model.Telepon" type="text" class="form-control" placeholder="Telepin">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">Alamat</label>
+                            <div class="col-sm-9">
+                                <textarea ng-model="model.Alamat" type="text" class="form-control" placeholder="Alamat"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.box-body -->
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Save changes</button>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+
+
+

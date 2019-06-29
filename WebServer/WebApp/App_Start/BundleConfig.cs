@@ -25,23 +25,10 @@ namespace WebApp
                bundles.Add(new ScriptBundle("~/bundles/angular").Include(
                     "~/bower_components/angular/angular.js",
                     "~/bower_components/angular-route/angular-route.js",
-                    "~/bower_components/angular-ui-router/release/angular-ui-router.js"   ,
-                    "~/Apps/app.js",
-                    "~/Apps/app.config.js",
-                    "~/Apps/admin/AdminController.js",
-                    "~/Apps/admin/AdminRoute.js"     ,
-                    "~/Apps/admin/AdminService.js" ,
-                    "~/Apps/Home/home.controller.js"     ,
-                    "~/Apps/Home/home.route.js"         ,
-                    "~/Apps/Home/home.Service.js"
-
-
-
+                    "~/bower_components/angular-ui-router/release/angular-ui-router.js" 
                     ));
 
-            bundles.Add(new StyleBundle("~/Content/css").Include(
-                      "~/Content/bootstrap.css",
-                      "~/Content/site.css"));
+         
         }
     }
 }

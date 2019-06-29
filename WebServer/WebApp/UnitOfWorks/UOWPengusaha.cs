@@ -50,6 +50,29 @@ namespace WebApp.UnitOfWorks
             }
         }
 
+        internal pengusaha GetByUserId(string userId)
+        {
+            try
+            {
+                using (var db = new OcphDbContext())
+                {
+                    var item = db.Companies.Where(O => O.UserId == userId).FirstOrDefault();
+                    if (item == null)
+                        throw new SystemException("Data Tidak Ditemukan !");
+                    else
+                    {
+                        item.Projects = db.Projects.Where(O => O.PengusahaId == item.PengusahaId).ToList();
+                        return item;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+                throw new SystemException(ex.Message);
+            }
+        }
+
         internal IEnumerable<pengusaha> Get()
         {
             using (var db = new OcphDbContext())
@@ -86,7 +109,7 @@ namespace WebApp.UnitOfWorks
             {
                 using (var db = new OcphDbContext())
                 {
-                   var updated= db.Companies.Update(O => new { O.Alamat, O.Direktur, O.Nama }, item, O => O.PengusahaId == item.PengusahaId);
+                   var updated= db.Companies.Update(O => new { O.Alamat, O.Direktur, O.Nama,O.Telepon }, item, O => O.PengusahaId == item.PengusahaId);
                     if (item.PengusahaId <= 0)
                         throw new SystemException("Data Tidak Tersimpan !");
                     else

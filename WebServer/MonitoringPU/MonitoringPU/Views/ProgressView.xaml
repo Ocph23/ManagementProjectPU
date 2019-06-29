@@ -7,14 +7,13 @@
     <ContentPage.Content>
         <StackLayout Padding="10">
             <ListView x:Name="ItemsListView"
-                ItemsSource="{Binding ProjectSelected.ListPenilaian}"
+                ItemsSource="{Binding ProjectSelected.LastPeriode.Data}"
                 VerticalOptions="FillAndExpand"
                 HasUnevenRows="true"
                 RefreshCommand="{Binding LoadItemsCommand}"
                 IsPullToRefreshEnabled="true"
                 IsRefreshing="{Binding IsBusy, Mode=OneWay}"
-                CachingStrategy="RecycleElement" IsEnabled="False"
-                >
+                CachingStrategy="RecycleElement" IsEnabled="False">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell  >
@@ -24,13 +23,14 @@
                                     <ColumnDefinition/>
                                 </Grid.ColumnDefinitions>
                                 <Grid HeightRequest="65">
-                                    <Label Text="75%" HorizontalOptions="Center" VerticalOptions="Center"></Label>
-                                    <control:ProgressRing  Grid.Column="0" RingThickness="10" WidthRequest="60"   Progress="0.75"></control:ProgressRing>
+                                    <Label Text="{Binding Nilai,StringFormat='{0}%'}" HorizontalOptions="Center" VerticalOptions="Center"></Label>
+                                    <control:ProgressRing  Grid.Column="0" RingThickness="10" WidthRequest="80"  
+                                                           Progress="{Binding NilaiView}"></control:ProgressRing>
                                 </Grid>
                                 
                                 <StackLayout Grid.Column="1">
-                                    <Label Text="{Binding Nama}"/>
-                                    <Label FontSize="Micro" Text="{Binding Description}"/>
+                                    <Label Text="{Binding Aspek.Aspek}"/>
+                                    <Label FontSize="Micro" Text="{Binding Aspek.Keterangan}"/>
                                 </StackLayout>
                             </Grid>
                         </ViewCell>

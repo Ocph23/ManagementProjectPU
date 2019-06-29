@@ -14,7 +14,7 @@ namespace MonitoringPU.Views
 	[XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class ProgressView : ContentPage
 	{
-		public ProgressView (Project item)
+		public ProgressView (project item)
 		{
 			InitializeComponent ();
             BindingContext = new ProgressViewModel(item);
@@ -26,9 +26,9 @@ namespace MonitoringPU.Views
 
     public class ProgressViewModel:BaseViewModel
     {
-        private Project _projectSelected;
+        private project _projectSelected;
 
-        public Project ProjectSelected {
+        public project ProjectSelected {
             get { return _projectSelected; }
             set
             {
@@ -36,7 +36,7 @@ namespace MonitoringPU.Views
             }
 
         }
-        public ProgressViewModel(Project item)
+        public ProgressViewModel(project item)
         {
             ProjectSelected = item;
         }

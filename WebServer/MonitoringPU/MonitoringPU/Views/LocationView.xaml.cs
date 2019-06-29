@@ -14,10 +14,10 @@ namespace MonitoringPU.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class LocationView : ContentPage
     {
-        public LocationView(Models.Project param)
+        public LocationView(Models.project param)
         {
             InitializeComponent();
-            webView.Source = "https://drive.google.com/open?id=1o0sD634a-lJf6BNgUEdLFVNCjMq4XEKj&usp=sharing";
+            webView.Source = param.Map;
             BindingContext = new LocationViewModel();
 
         }
@@ -38,7 +38,7 @@ namespace MonitoringPU.Views
         public LocationViewModel()
         {
             Pins = new ObservableCollection<Pin>();
-            Pins.Add(new Pin() { Label = "MyHome", Position = new Position(-2.612852, 140.678479) });
+            Pins.Add(new Pin() { Label = "Home", Position = new Position(-2.612852, 140.678479) });
             MyPosition = new Position(-2.612852, 140.678479);
         }
 

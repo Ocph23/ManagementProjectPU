@@ -1,0 +1,38 @@
+﻿<div class="box">
+    <div class="box-header">
+        <h3 class="box-title">Data Konsultan</h3>
+    </div>
+    <!-- /.box-header -->
+    <div class="box-body">
+        <div class="col-md-3">
+            <input class="form-control pull-right" ng-model="Search" placeholder="Search" />
+            <span><i class="fa fa-find"></i></span>
+        </div>
+        <table id="example1" class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Nama Perusahaan</th>
+                    <th>Pimpinan</th>
+                    <th>Telepn</th>
+                    <th>Email</th>
+                    <th colspan="2">Alamat</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="item in Datas|filter:Search">
+                    <td>{{$index+1}}</td>
+                    <td>{{item.Perusahaan}}</td>
+                    <td>{{item.Pimpinan}}</td>
+                    <td>{{item.Telepon}}</td>
+                    <td>{{item.Email}}</td>
+                    <td>{{item.Alamat}}</td>
+
+                </tr>
+
+            </tbody>
+
+        </table>
+    </div>
+    <!-- /.box-body -->
+</div>

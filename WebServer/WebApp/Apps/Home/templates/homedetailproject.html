@@ -1,0 +1,324 @@
+﻿
+<section class="content">
+    <!-- Info boxes -->
+
+    <style>
+        .info-box-icon {
+            height: 153px;
+        }
+    </style>
+    <div class="row">
+
+        <div class="col-md-4 col-sm-12 col-xs-12">
+            <div class="info-box">
+                <span class="info-box-icon bg-aqua"><i class="ion ion-ios-gear-outline"></i></span>
+                <div class="info-box-content">
+                    <h5>Pekerjaan   <span class="info-box-number">{{Selected.NamaPekerjaan}}</span></h5>
+                    <h5>Nomor Kontrak   <span class="info-box-number">{{Selected.NomorKontrak}}</span></h5>
+                    <h5>Niai Kontrak   <span class="info-box-number">Rp. {{Selected.NilaiKontrak|number}}</span></h5>
+
+                </div>
+                <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+        </div>
+        <div class="col-md-4 col-sm-6 col-xs-12">
+            <div class="info-box">
+                <span class="info-box-icon bg-aqua"><i class="ion ion-ios-gear-outline"></i></span>
+                <div class="info-box-content">
+                    <h5>Tanggal Kontrak   <span class="info-box-number">{{Selected.TanggalKontrak| date:'dd-MM-yyyy'}}</span></h5>
+                    <h5>Lama Pengerjaan   <span class="info-box-number">{{Selected.LamaPekerjaan|number}} Hari</span></h5>
+                    <h5>Tanggal Berakhir   <span class="info-box-number">{{Selected.TanggalBerakhir| date:'dd-MM-yyyy'}}</span></h5>
+
+                </div>
+                <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+        </div>
+        <div class="clearfix visible-sm-block"></div>
+        <div class="col-md-4 col-sm-6 col-xs-12">
+            <div class="info-box">
+                <span class="info-box-icon bg-aqua"><i class="ion ion-ios-gear-outline"></i></span>
+                <div class="info-box-content">
+                    <h5>Unit Kerja   <span class="info-box-number">{{Selected.Bidang.Nama}}</span></h5>
+                    <h5>Pimpinan Unit Kerja<span class="info-box-number">{{Selected.Bidang.Pimpinan}}</span></h5>
+                    <h5>Status Pekerjaan   <span class="info-box-number">{{Selected.Progress}} %</span></h5>
+
+
+                </div>
+                <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div class="col-md-8">
+            <div class="box box-default">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Bobot Aspek Penilaian</h3>
+                </div>
+                <!-- /.box-header -->
+                <div class="box-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <disv class="row">
+                                <div class="progress-group col-md-12" ng-repeat="data in Selected.AspekPenilaian">
+                                    <div class="form-inline">
+                                        <span class="progress-text">{{data.Aspek}}</span>
+                                        <span class="progress-number">{{data.BobotPenilaian}}%</span>
+                                        <div class="progress sm">
+                                            <div class="progress-bar progress-bar-aqua" style="width:{{data.BobotPenilaian}}%"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </disv>
+                            <div class="modal-footer">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="box box-default">
+                                <div class="box-header with-border">
+                                    <h3 class="box-title">Capaian</h3>
+                                </div>
+                                <!-- /.box-header -->
+                                <style>
+                                    .row {
+                                    }
+
+                                    .center {
+                                        margin: 10px;
+                                        position: absolute;
+                                        top: 50%;
+                                        left: 50%;
+
+                                        -ms-transform: translate(-50%, -50%);
+                                        transform: translate(-50%, -50%);
+                                    }
+                                </style>
+                                <div class="box-body">
+                                    <div class="row">
+                                        <div class="center" >
+                                         
+                                        </div>
+                                        <canvas id="pieChart">
+                                          
+                                        </canvas>
+                                        <div class="text-center">  Capaian {{Selected.Progress}} %</div>
+
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+
+
+            <!-- /.info-box -->
+
+            <div class="box box-success">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Lokasi Pekerjaan</h3>
+                    <div class="box-tools pull-right">
+                        <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                            <i class="fa fa-minus"></i>
+                        </button>
+                        <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                    </div>
+                </div>
+                <!-- /.box-header -->
+                <div class="box-body no-padding">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="pad">
+                                <iframe ng-src="{{Selected.MapView}}" style="width:100%" height="500"></iframe>
+                            </div>
+                        </div>
+
+                    </div>
+                    <!-- /.row -->
+                </div>
+                <!-- /.box-body -->
+            </div>
+
+            <div class="box box-success">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Galeri Foto</h3>
+                    <div class="box-tools pull-right">
+                        <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                            <i class="fa fa-minus"></i>
+                        </button>
+
+                    </div>
+                </div>
+                <!-- /.box-header -->
+                <div class="box-body" style="background-repeat: no-repeat; height:500px; background-size: 100% 100%;background-image:url(data:image/png;base64,{{SelectedFoto}})">
+                    <div class="col-md-2">
+                        <div class="progresImage" ng-repeat="item in Fotos " ng-click="SelectPeriode(item)">
+                            <h5 class="center" ng-click="SelectPeriode(item)">Periode{{item.PeriodeId}}</h5>
+                        </div>
+                    </div>
+
+                    <div class="row margin-bottom">
+                        <div class="scrollmenu" style="width:80%;right:0; bottom:2px;position:absolute; padding:10px">
+                            <img ng-repeat="item in Periode.Fotos" style="max-height:100px" ng-click="SelectFoto(item)"
+                                 class="imgicon" src="data:image/png;base64,{{item.Foto}}" alt="Photo">
+                        </div>
+                        <!-- /.col -->
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+
+        <!-- Left col -->
+        <div class="col-md-4">
+            <div class="box box-warning box-solid" ng-repeat="item in Selected.Periodes">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Penilaian {{item.PeriodeId}}</h3>
+                    <div class="box-tools pull-right">
+                        <a href="" class="btn btn-box-tool" role="button" ng-click="isCollapsed = !isCollapsed">
+                            <i class="fa fa-minus"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="box-body" uib-collapse="!isCollapsed">
+                    <div class="col-md-12">
+                        <div class="progress-group" ng-repeat="data in item.Data">
+                            <span class="progress-text">{{data.Aspek.Aspek}}</span>
+                            <span class="progress-number"><b>{{data.Nilai}}</b>%</span>
+                            <div class="progress sm">
+                                <div class="progress-bar progress-bar-aqua" style="width: {{ data.Nilai}}%"></div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="box box-widget widget-user">
+                <!-- Add the bg color to the header using any of the bg-* classes -->
+                <div class="widget-user-header bg-black-active">
+                    <h3 class="widget-user-username">Kontraktor</h3>
+                    <div class="pull-right">
+                        <h4>{{Selected.Kontraktor.Direktur}}</h4>
+                        <h6>Pimpinan</h6>
+                    </div>
+
+                </div>
+                <div class="text-center">
+                    <h4>{{Selected.Kontraktor.Nama}}</h4>
+                </div>
+                <div class="box-footer">
+                    <div class="row">
+                        <div class="col-sm-6 border-right">
+                            <div class="description-block">
+                                <h5 class="description-header">Alamat</h5>
+                                <h6>{{Selected.Kontraktor.Alamat}}</h6>
+                            </div>
+                            <!-- /.description-block -->
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="description-block">
+                                <h5 class="description-header">Telp</h5>
+                                <h6>{{Selected.Kontraktor.Telepon}}</h6>
+                            </div>
+                            <!-- /.description-block -->
+                        </div>
+                        <!-- /.col -->
+                    </div>
+                    <!-- /.row -->
+                </div>
+            </div>
+            <div class="box box-widget widget-user">
+                <!-- Add the bg color to the header using any of the bg-* classes -->
+                <div class="widget-user-header bg-aqua-active">
+                    <h3 class="widget-user-username">Konsultan</h3>
+                    <div class="pull-right">
+                        <h4>{{Selected.Konsultan.Pimpinan}}</h4>
+                        <h6>Pimpinan</h6>
+                    </div>
+
+                </div>
+                <div class="text-center">
+                    <h4>{{Selected.Konsultan.Perusahaan}}</h4>
+                </div>
+                <div class="box-footer">
+                    <div class="row">
+                        <div class="col-sm-6 border-right">
+                            <div class="description-block">
+                                <h5 class="description-header">Alamat</h5>
+                                <h6>{{Selected.Konsultan.Alamat}}</h6>
+                            </div>
+                            <!-- /.description-block -->
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="description-block">
+                                <h5 class="description-header">Telp</h5>
+                                <h6>{{Selected.Konsultan.Telepon}}</h6>
+                            </div>
+                            <!-- /.description-block -->
+                        </div>
+                        <!-- /.col -->
+                    </div>
+                    <!-- /.row -->
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+</section>
+
+
+
+<style>
+   
+    .center {
+        margin: 0;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        -ms-transform: translate(-50%, -50%);
+        transform: translate(-50%, -50%);
+    }
+
+    .progresImage {
+        color:white;
+        margin:2px;
+        position: relative;
+        border: 1px solid green;
+        background-color: dodgerblue;
+        align-content: center;
+        opacity: 0.7;
+        height: 60px;
+        width: 90px;
+    }
+    .imgicon {
+        margin: 2px;
+    }
+
+
+    div.scrollmenu {
+        overflow: auto;
+        white-space: nowrap;
+    }
+
+        div.scrollmenu img {
+            display: inline-block;
+            color: white;
+            text-align: center;
+            padding: 2px;
+            text-decoration: none;
+        }
+
+            div.scrollmenu img:hover {
+                background-color: #777;
+            }
+</style>

@@ -6,10 +6,10 @@ namespace MonitoringPU.ViewModels
 {
     public class ItemDetailViewModel : BaseViewModel
     {
-        public Project Item { get; set; }
-        public ItemDetailViewModel(Project item = null)
+        public project Item { get; set; }
+        public ItemDetailViewModel(project item = null)
         {
-            Title = item?.Text;
+            Title = item?.NamaPekerjaan;
             Item = item;
         }
     }

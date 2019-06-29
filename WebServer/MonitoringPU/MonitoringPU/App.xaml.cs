@@ -16,7 +16,7 @@ namespace MonitoringPU
             InitializeComponent();
 
 
-            MainPage = new MainPage();
+            MainPage = new LoginView();
 
             MessagingCenter.Subscribe<MessagingCenterAlert>(this, "message", async (message) =>
             {
@@ -43,6 +43,11 @@ namespace MonitoringPU
         public void ChangeScreen(Page page)
         {
             Current.MainPage = new NavigationPage( page);
+        }
+
+        public void ChangeMain(Page page)
+        {
+            Current.MainPage = page;
         }
 
         internal void SetToken(AuthenticationToken token)

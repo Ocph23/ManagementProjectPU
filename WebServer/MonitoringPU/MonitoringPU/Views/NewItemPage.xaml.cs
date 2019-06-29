@@ -11,17 +11,11 @@ namespace MonitoringPU.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class NewItemPage : ContentPage
     {
-        public Project Item { get; set; }
+        public project Item { get; set; }
 
         public NewItemPage()
         {
             InitializeComponent();
-
-            Item = new Project
-            {
-                Text = "Item name",
-                Description = "This is an item description."
-            };
 
             BindingContext = this;
         }

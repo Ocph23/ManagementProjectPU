@@ -24,13 +24,7 @@ namespace MonitoringPU.Views
         {
             InitializeComponent();
 
-            var item = new Project
-            {
-                Text = "Item 1",
-                Description = "This is an item description."
-            };
-
-            viewModel = new ItemDetailViewModel(item);
+           
             BindingContext = viewModel;
         }
     }

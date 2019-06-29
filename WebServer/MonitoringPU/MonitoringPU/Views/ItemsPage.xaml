@@ -5,7 +5,7 @@
               Title="{Binding Title}"
              x:Name="BrowseItemsPage">
     <ContentPage.ToolbarItems>
-        <ToolbarItem Text="Add" Clicked="AddItem_Clicked">
+        <ToolbarItem Text="?" Clicked="AddItem_Clicked">
             <ToolbarItem.Icon>
                 <OnPlatform x:TypeArguments="FileImageSource">
                     <On Platform="UWP" Value="add.png"/>
@@ -26,33 +26,33 @@
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>
-                        <Grid Padding="10" BackgroundColor="#F1F9FF" RowSpacing="20" Margin="5">
+                        <Grid Padding="12" BackgroundColor="#E8ECDC" RowSpacing="20" Margin="2">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto"/>
                                 <RowDefinition Height="*"/>
                                 <RowDefinition Height="Auto"/>
                             </Grid.RowDefinitions>
-                            <Label Text="BIDANG"/>
+                            <Label Text="{Binding Bidang.Nama}"/>
                             <StackLayout  Grid.Row="1">
-                                <Label FontAttributes="Bold" FontSize="17" Text="{Binding Text}" 
+                                <Label FontAttributes="Bold" FontSize="17" Text="{Binding NamaPekerjaan}" 
                                 LineBreakMode="NoWrap" 
                                 />
-                                <Label Text="{Binding Description}" 
+                                <Label Text="{Binding Keterangan}" 
                                 LineBreakMode="NoWrap"
                                 Style="{DynamicResource ListItemDetailTextStyle}"
                                 FontSize="Small" />
                             </StackLayout>
                             <StackLayout HorizontalOptions="End" Grid.Row="2" Orientation="Horizontal" Margin="20" Spacing="30">
-                                <Label Style="{StaticResource labelButton}" Text="Nilai">
+                                <Label Style="{StaticResource labelButton}" Text="Progress">
                                     <Label.GestureRecognizers>
                                         <TapGestureRecognizer Command="{Binding PenilaianCommand}" CommandParameter="{Binding .}" />
                                     </Label.GestureRecognizers>
                                 </Label>
-                                <Label Style="{StaticResource labelButton}" Text="Progress">
+                                <!--Label Style="{StaticResource labelButton}" Text="Progress">
                                     <Label.GestureRecognizers>
                                         <TapGestureRecognizer Command="{Binding ProgressCommand}" CommandParameter="{Binding .}" />
                                     </Label.GestureRecognizers>
-                                </Label>
+                                </-->
                                 <Label Style="{StaticResource labelButton}" Text="Location">
                                     <Label.GestureRecognizers>
                                         <TapGestureRecognizer Command="{Binding LocationCommand}" CommandParameter="{Binding .}" />

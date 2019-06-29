@@ -1,0 +1,230 @@
+﻿
+<section class="content-header">
+    <div class="col-md-12">
+        <div class="col-md-9">
+            <button ng-click="model = {}" type="button" class="btn btn-default" data-toggle="modal" data-target="#modal-default">
+                Proyek Baru
+            </button>
+        </div>
+        <div class="col-md-3">
+            <input ng-model="Search" class="form-control pull-right" placeholder="Search" />
+            <span><i class="fa fa-find"></i></span>
+        </div>
+    </div>
+</section>
+<div class="row">
+    <div class="col-md-3" ng-repeat="item in Datas| filter:{UnitKerjaId:BidangSelected.UnitKerjaId}|filter:Search">
+        <div class="box box-widget widget-user">
+            <div class="widget-user-header bg-aqua-active">
+                <h4>{{item.NamaPekerjaan}}</h4>
+                <h6 class="widget-user-desc"> {{item.NomorKontrak}}</h6>
+                <span style="position:absolute;right:15px;top:10px" class="pull-right" uib-dropdown on-toggle="toggled(open)">
+                    <a href="#" id="simple-dropdown" uib-dropdown-toggle>
+                        <i style="color:white" class="fa fa-caret-square-o-down fa-2x " aria-hidden="true"></i>
+                    </a>
+                    <ul class="dropdown-menu" uib-dropdown-menu aria-labelledby="simple-dropdown">
+                        <li>
+                            <a ng-click="SelectedItem(item)" data-toggle="modal" data-target="#modal-default">Edit</a>
+                        </li>
+                        <li>
+                            <a ng-click="SelectedItem(item)" role="button" data-toggle="modal" data-target="#addmapmodal">Tambah/Edit Peta</a>
+                        </li>
+
+                    </ul>
+                </span>
+
+            </div>
+            <div style="min-height:150px;background-image:url('../../../dist/img/photo1.png');background-size:100% 100%">
+            </div>
+            <div class="box-footer">
+                <div class="row">
+                  
+                    <div class="col-sm-12 border-left pull-right">
+                        <div class="description-block">
+                            <a role="button" class="btn btn-warning" href="" ui-sref="proyekdetail({data:item})">Details</a>
+                        </div>
+                        <!-- /.description-block -->
+                    </div>
+                    <!-- /.col -->
+                </div>
+                <!-- /.row -->
+            </div>
+        </div>
+        <!-- /.widget-user -->
+    </div>
+
+</div>
+
+
+<div class="modal fade" id="modal-default">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title">Proyek Baru</h4>
+            </div>
+            <div class="modal-body">
+                <form role="form" class="form-horizontal" ng-submit="Save(model)">
+                    <div class="box-body">
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">Nomor Kontrak</label>
+                            <div class="col-sm-9">
+                                <input ng-model="model.NomorKontrak" type="text" class="form-control" placeholder="Nomor Kontrak">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">Pekerjaan</label>
+                            <div class="col-sm-9">
+                                <input ng-model="model.NamaPekerjaan" type="text" class="form-control" placeholder="Pekerjaan">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">Nilai Kontrak</label>
+                            <div class="col-sm-9">
+                                <input ng-model="model.NilaiKontrak" type="number" class="form-control" placeholder="Nilai Kontrak">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">Lama Pekerjaan</label>
+                            <div class="col-sm-9">
+                                <input ng-model="model.LamaPekerjaan" type="number" class="form-control" placeholder="...hari">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">Lokasi</label>
+                            <div class="col-sm-9">
+                                <input ng-model="model.LokasiPekerjaan" type="text" class="form-control" placeholder="Alamat Pekerjaan">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">Tanggal Mulai</label>
+                                <div class="col-sm-9">
+                                    <div class="input-group date">
+                                        <div class="input-group-addon">
+                                            <i class="fa fa-calendar"></i>
+                                        </div>
+                                        <input ng-model="model.TanggalKontrak" type="text" class="form-control pull-right" id="datepicker">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">Bidang</label>
+                            <div class="col-sm-9">
+                                <select ng-options="item.UnitKerjaId as item.Nama for item in Bidangs track by item.UnitKerjaId" ng-model="model.UnitKerjaId" class="form-control"></select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">Kontraktor</label>
+                            <div class="col-sm-9">
+                                <select ng-options="item.PengusahaId as item.Nama for item in Kontraktors track by item.PengusahaId" ng-model="model.PengusahaId" class="form-control"></select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">Konsultan</label>
+                            <div class="col-sm-9">
+                                <select ng-options="item.ID as item.Perusahaan for item in Konsultans track by item.ID" ng-model="model.KonsultanId" class="form-control"></select>
+
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.box-body -->
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Save changes</button>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+
+<div class="modal fade" id="addmapmodal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title">Proyek Baru</h4>
+            </div>
+            <div class="modal-body">
+                <form role="form" class="form-horizontal" ng-submit="Save(Selected)">
+                    <div class="box-body">
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">Link Peta</label>
+                            <div class="col-sm-9">
+                                <input ng-model="Selected.Map" type="text" class="form-control" placeholder="Peta">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">Koordinat</label>
+                            <div class="col-sm-9">
+                                <input ng-model="Selected.Koordinat" class="form-control" placeholder="exmp (lat,long) : 12223232.212,2343423 " />
+                            </div>
+                        </div>
+
+                    </div>
+                    <!-- /.box-body -->
+                    <div class="modal-footer">
+                        <a role="button" href="https://www.google.com/maps/d/" class="pull-left" target="_blank">Buat Peta</a>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Save changes</button>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+
+<div class="modal fade" id="modal-map">
+    <div class="modal-lg">
+        <div class="modal-content">
+            <div class="box-header">
+                <h3 class="box-title">Lokasi Pekerjaan</h3>
+                <div class="box-tools pull-right">
+                    <button type="button" class="btn btn-box-tool" data-dismiss="modal" aria-label="Close">
+                        <i class="fa fa-times"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div class="modal-body">
+
+                <iframe src="https://www.google.com/maps/d/embed?mid=1o0sD634a-lJf6BNgUEdLFVNCjMq4XEKj" style="width:100%" height="500"></iframe>
+
+            </div>
+
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+
+<script>
+    $(function () {
+
+        $('#datepicker').datepicker({
+            autoclose: true
+        })
+
+
+        //Timepicker
+        $('.timepicker').timepicker({
+            showInputs: false
+        })
+    })</script>

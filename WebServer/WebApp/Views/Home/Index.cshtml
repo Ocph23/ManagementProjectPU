@@ -1,4 +1,39 @@
-﻿@{
-    ViewBag.Title = "Home Page";
-}
-<ui-view></ui-view>
+﻿<header class="main-header">
+    <!-- Logo -->
+    <a href="../../index2.html" class="logo">
+        <!-- mini logo for sidebar mini 50x50 pixels -->
+        <span class="logo-mini"><b>PU</b></span>
+        <!-- logo for regular state and mobile devices -->
+        <span class="logo-lg">PU<b>NABIRE</b></span>
+    </a>
+    <!-- Header Navbar: style can be found in header.less -->
+    <nav class="navbar navbar-static-top">
+
+        <ul class="nav navbar-nav">
+            <li>
+                <a ui-sref="index">Home</a>
+            </li>
+            <li>
+                <a ui-sref="homeproject">Pekerjaan</a>
+            </li>
+            <li>
+                <a ui-sref="homebidang">Unit Kerja</a>
+            </li>
+            <li>
+                <a ui-sref="homekontraktor">Kontraktor</a>
+            </li>
+            <li>
+                <a ui-sref="homekonsultan">Konsultan</a>
+            </li>
+
+
+            <li>
+                <a href="~/Admin" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<section class="content" style="margin:20px">
+    <ui-view></ui-view>
+    
+</section>
