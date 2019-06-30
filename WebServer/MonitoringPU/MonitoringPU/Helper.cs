@@ -13,7 +13,6 @@ namespace MonitoringPU
     public class Helper
     {
 
-        
       //  private static string _server = "http://192.168.1.2/";
         private static string _server = "http://monitoringproyek.gear.host/";
 
@@ -44,7 +43,7 @@ namespace MonitoringPU
             }
         }
 
-
+                                                                
         internal static void ShowMessageError(string v)
         {
             MessagingCenter.Send(new MessagingCenterAlert

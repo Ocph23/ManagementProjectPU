@@ -26,9 +26,9 @@ namespace MonitoringPU.Views
         public LoginViewModel()
         {
             LoginCommand = new Command(LoginAction);
-            Email = "ocph23@gmail.com";
+            Email = "matiusmorin85@gmail.com";
            // Password = "vCfRAp3#";
-            Password = "Sony@77";
+            Password = "uht5rY3#";
         }
 
         private async void LoginAction(object obj)

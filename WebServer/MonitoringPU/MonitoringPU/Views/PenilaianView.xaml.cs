@@ -143,7 +143,10 @@ namespace MonitoringPU.Views
             set
             {
                 SetProperty(ref _periode, value);
-                _periode.InstanceEventChangeValue();
+                if(value!=null)
+                {
+                    _periode.InstanceEventChangeValue();
+                }
                 SaveCommand = new Command(SaveCommandAction, x => PeriodeSelected != null);
             }
         }
